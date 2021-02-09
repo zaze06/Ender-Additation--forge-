@@ -72,7 +72,7 @@ public class EnderiteTools {
 
 		int trys = 0;
 
-		while(trys < 30){
+		while(trys < 30){//i här blir fel
 			double X = minX + (Math.random() * maxX);
 			double Y = minY + (Math.random() * maxX);
 			double Z = minZ + (Math.random() * maxX);

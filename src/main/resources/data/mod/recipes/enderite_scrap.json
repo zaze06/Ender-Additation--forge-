@@ -1,0 +1,9 @@
+{
+	"type": "minecraft:smelting",
+	"ingredient": {
+	    "item": "mod:ender_debri"
+	},
+	"result": "mod:enderite_scrap",
+	"experience": 0.1,
+	"cookingtime": 100
+}

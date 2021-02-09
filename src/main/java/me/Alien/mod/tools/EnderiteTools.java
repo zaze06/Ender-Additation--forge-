@@ -104,7 +104,7 @@ public class EnderiteTools {
 
 
 
-			return ActionResult.resultSuccess(handIn.toString());
+			return ActionResult.resultSuccess(null);
 		}
 	}
 

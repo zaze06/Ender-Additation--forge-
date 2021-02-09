@@ -87,7 +87,7 @@ public class EnderiteTools {
 				Vector3d Start = target.getPositionVec();
 				target.setLocationAndAngles(X, Y, Z, PitchYaw.x, PitchYaw.y);
 				Vector3d End = target.getPositionVec();
-				System.out.println("Try no: " + trays + " completed: move to : " + X + " : " + Y + " : " + Z + " : Distance: " + Start.distanceTo(End) + " : Maximum distance: " + );
+				System.out.println("Try no: " + trays + " completed: move to : " + X + " : " + Y + " : " + Z + " : Distance: " + Start.distanceTo(End) + " : Maximum distance: 24");
 				break;
 			}
 			System.out.println("Try no: " + trays + " failed: try to move to : " + X + " : " + Y + " : " + Z);

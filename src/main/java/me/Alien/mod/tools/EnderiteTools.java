@@ -10,8 +10,10 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +24,7 @@ import net.minecraftforge.common.util.Constants;
 
 public class EnderiteTools {
 
-	public static IItemTier ItemTirts = new IItemTier() {
+	public static IItemTier ItemTiers = new IItemTier() {
 
 		@Override
 		public int getMaxUses() {
@@ -82,7 +84,7 @@ public class EnderiteTools {
 	public static class Sword extends SwordItem {
 
 		public Sword() {
-			super(EnderiteTools.ItemTirts, 1, 1, EnderiteTools.prop);
+			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
 		}
 
 		@Override
@@ -100,11 +102,24 @@ public class EnderiteTools {
 		}
 
 		@Override
-		public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand hand) {
+			PlayerEntity Player = playerIn;
+
+			ItemStack OffHand = Player.getHeldItem(hand.OFF_HAND);
+
+			CompoundNBT NBTTAGS = Player.getHeldItem(hand.MAIN_HAND).getOrCreateChildTag(Main.ModId);
+
+			if(OffHand.equals(Items.ENDER_PEARL)){
+				for(int i = 0; i < 5; i++){
+					if(OffHand.getCount()>0){
+						OffHand.setCount(OffHand.getCount()-1);
+						NBTTAGS.putInt("Uses", NBTTAGS.getInt("Uses")+1);
+					}
+				}
+			}
 
 
-
-			return ActionResult.resultSuccess(appa);
+			return ActionResult.resultSuccess(Player.getHeldItem(hand));
 		}
 	}
 

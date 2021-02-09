@@ -1,6 +1,8 @@
 package me.Alien.mod.setup;
 
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fml.RegistryObject;
 import me.Alien.mod.tools.EnderiteTools;
 
@@ -12,7 +14,7 @@ public class ModItems {
 	// Tools
 	
 	public static final RegistryObject<Item> ENDERITE_SWORD = Registration.ITEMS.register("enderite_sword", () ->
-			new EnderiteTools(null));
+			new EnderiteTools.Sword());
 	
 	
 	static void register() {}

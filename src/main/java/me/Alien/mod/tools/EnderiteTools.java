@@ -1,6 +1,7 @@
 package me.Alien.mod.tools;
 
 import java.util.List;
+import java.util.Vector;
 
 import me.Alien.mod.Main;
 import me.Alien.mod.setup.ModItemGroup;
@@ -18,10 +19,13 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
+import org.lwjgl.system.CallbackI;
 
 public class EnderiteTools {
 
@@ -70,9 +74,9 @@ public class EnderiteTools {
 		double maxY = target.getPosY() + 14;
 		double maxZ = target.getPosZ() + 14;
 
-		int trys = 0;
+		int trays = 0;
 
-		while(trys < 30){//i här blir fel
+		while(trays < 30){//i här bler det fel
 			double X = minX + (Math.random() * maxX);
 			double Y = minY + (Math.random() * maxY);
 			double Z = minZ + (Math.random() * maxZ);
@@ -80,11 +84,14 @@ public class EnderiteTools {
 			Vector2f PitchYaw = target.getPitchYaw();
 
 			if (target.getEntityWorld().isAirBlock(new BlockPos.Mutable(X, Y, Z)) && (Y > 0)){
+				Vector3d Start = target.getPositionVec();
 				target.setLocationAndAngles(X, Y, Z, PitchYaw.x, PitchYaw.y);
+				Vector3d End = target.getPositionVec();
+				System.out.println("Try no: " + trays + " completed: move to : " + X + " : " + Y + " : " + Z + " : Distance: " + Start.distanceTo(End) + " : Maximum distance: " + );
 				break;
 			}
-			System.out.println("Try no: " + trys + " faild: try to move to : " + X + " : " + Y + " : " + Z);
-			trys++;
+			System.out.println("Try no: " + trays + " failed: try to move to : " + X + " : " + Y + " : " + Z);
+			trays++;
 		}
 
 

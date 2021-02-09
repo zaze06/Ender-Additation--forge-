@@ -17,6 +17,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -59,24 +60,35 @@ public class EnderiteTools {
 	
 	public static Item.Properties prop = new Item.Properties().group(ModItemGroup.ENDER_ADDITION).isImmuneToFire();
 
-	public static boolean damage(ItemStack stack, PlayerEntity player, Entity targetE){
-		if(targetE instanceof LivingEntity) {
-			LivingEntity target = (LivingEntity) targetE;
-			double minX = target.getPosX() - 14;
-			double minY = target.getPosX() - 14;
-			double minZ = target.getPosX() - 14;
+	public static boolean damage(ItemStack stack, LivingEntity player, LivingEntity targetE){
+		LivingEntity target = targetE;
+		double minX = target.getPosX() - 14;
+		double minY = target.getPosY() - 14;
+		double minZ = target.getPosZ() - 14;
 
-			double maxX = target.getPosX() + 14;
-			double maxY = target.getPosX() + 14;
-			double maxZ = target.getPosX() + 14;
+		double maxX = target.getPosX() + 14;
+		double maxY = target.getPosY() + 14;
+		double maxZ = target.getPosZ() + 14;
 
-			double X = (Math.random() * (maxX - minX) + minX);
-			double Y = (Math.random() * (maxX - minX) + minX);
-			double Z = (Math.random() * (maxX - minX) + minX);
+		int trys = 0;
 
-			if (target.getEntityWorld().isAirBlock(new BlockPos.Mutable(X, Y, Z)))
-				target.attemptTeleport(X, Y, Z, true);
+		while(trys < 30){
+			double X = minX + (Math.random() * maxX);
+			double Y = minY + (Math.random() * maxX);
+			double Z = minZ + (Math.random() * maxX);
+
+			Vector2f PitchYaw = target.getPitchYaw();
+
+			if (target.getEntityWorld().isAirBlock(new BlockPos.Mutable(X, Y, Z)) && (Y > 0)){
+				target.setLocationAndAngles(X, Y, Z, PitchYaw.x, PitchYaw.y);
+				break;
+			}
+			System.out.println("Try no: " + trys + " faild: try to move to : " + X + " : " + Y + " : " + Z);
+			trys++;
 		}
+
+
+
 
 		return true;
 	}
@@ -88,8 +100,8 @@ public class EnderiteTools {
 		}
 
 		@Override
-		public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
-			return EnderiteTools.damage(stack, player, entity);
+		public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+			return EnderiteTools.damage(stack, attacker, target);
 		}
 
 		@Override

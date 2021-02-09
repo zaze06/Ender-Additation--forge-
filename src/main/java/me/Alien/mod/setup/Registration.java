@@ -27,6 +27,7 @@ public class Registration {
 		ModItems.register();
 		ModBlock.register();
 		ModSound.register();
+		ModEnchants.register();
 	}
 	
 	

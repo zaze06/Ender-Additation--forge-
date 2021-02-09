@@ -74,8 +74,8 @@ public class EnderiteTools {
 
 		while(trys < 30){//i här blir fel
 			double X = minX + (Math.random() * maxX);
-			double Y = minY + (Math.random() * maxX);
-			double Z = minZ + (Math.random() * maxX);
+			double Y = minY + (Math.random() * maxY);
+			double Z = minZ + (Math.random() * maxZ);
 
 			Vector2f PitchYaw = target.getPitchYaw();
 

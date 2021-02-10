@@ -18,10 +18,13 @@ import org.apache.logging.log4j.Logger;
 
 import me.Alien.ea.setup.Registration;
 
+import javax.annotation.Signed;
+
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Main.ModId)
 public class Main
 {
+
 	public static final String ModId = "ea";
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
@@ -39,8 +42,7 @@ public class Main
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, Events::generateOrs);
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, Events::GenToolTip);
+        MinecraftForge.EVENT_BUS.register(Events.class);
         
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

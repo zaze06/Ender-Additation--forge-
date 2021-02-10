@@ -133,26 +133,6 @@ public class EnderiteTools {
 		public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 			EnderiteTools.addInformation(stack, worldIn, tooltip, flagIn);
 		}
-
-		@Override
-		public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand hand) {
-			PlayerEntity Player = playerIn;
-
-			ItemStack OffHand = Player.getHeldItem(hand.OFF_HAND);
-
-			CompoundNBT NBTTAGS = Player.getHeldItem(hand.MAIN_HAND).getOrCreateChildTag(Main.ModId);
-
-			if(OffHand.equals(Items.ENDER_PEARL)){
-				for(int i = 0; i < 5; i++){
-					if(OffHand.getCount()>0){
-						OffHand.setCount(OffHand.getCount()-1);
-						NBTTAGS.putInt("Uses", NBTTAGS.getInt("Uses")+1);
-					}
-				}
-			}
-
-			return ActionResult.resultSuccess(Player.getHeldItem(hand));
-		}
 	}
 
 	public static class Pickaxe extends PickaxeItem{
@@ -174,6 +154,38 @@ public class EnderiteTools {
 
 	public static class Axe extends AxeItem{
 		public Axe() {
+			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
+		}
+
+		@Override
+		public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+			EnderiteTools.addInformation(stack, worldIn, tooltip, flagIn);
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+			return EnderiteTools.damage(stack, attacker, target);
+		}
+	}
+
+	public static class Shovel extends SwordItem{
+		public Shovel() {
+			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
+		}
+
+		@Override
+		public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+			EnderiteTools.addInformation(stack, worldIn, tooltip, flagIn);
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+			return EnderiteTools.damage(stack, attacker, target);
+		}
+	}
+
+	public static class Hoe extends HoeItem{
+		public Hoe() {
 			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
 		}
 

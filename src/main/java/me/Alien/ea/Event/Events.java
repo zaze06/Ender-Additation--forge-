@@ -8,10 +8,15 @@ import me.Alien.ea.setup.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
@@ -23,6 +28,7 @@ import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -52,6 +58,35 @@ public class Events {
             String Data = "Kiils "+Tag.getInt("Kills")+"/"+ KillCounter.Max[Level];
             Tip.add(ITextComponent.getTextComponentOrEmpty(Data));
             event.setResult(Event.Result.ALLOW);
+        }
+    }
+
+    @SubscribeEvent
+    public static void RightClickItemEvent(RightClickItem event){
+        ItemStack stack = event.getItemStack();
+        boolean IsEnderiteTools = false;
+        if(stack.equals(new ItemStack(ModItems.ENDERITE_PICKAXE.get()), false)) IsEnderiteTools = true;
+        if(stack.equals(new ItemStack(ModItems.ENDERITE_SWORD.get()), false)) IsEnderiteTools = true;
+        if(stack.equals(new ItemStack(ModItems.ENDERITE_HOE.get()), false)) IsEnderiteTools = true;
+        if(stack.equals(new ItemStack(ModItems.ENDERITE_SHOVEL.get()), false)) IsEnderiteTools = true;
+        if(stack.equals(new ItemStack(ModItems.ENDERITE_AXE.get()), false)) IsEnderiteTools = true;
+
+
+        if(IsEnderiteTools){
+            PlayerEntity Player = event.getPlayer();
+
+            ItemStack OffHand = Player.getHeldItemOffhand();
+
+            CompoundNBT NBTTAGS = Player.getHeldItemMainhand().getOrCreateChildTag(Main.ModId);
+
+            if(OffHand.equals(Items.ENDER_PEARL)){
+                for(int i = 0; i < 5; i++){
+                    if(OffHand.getCount()>0){
+                        OffHand.setCount(OffHand.getCount()-1);
+                        NBTTAGS.putInt("Uses", NBTTAGS.getInt("Uses")+1);
+                    }
+                }
+            }
         }
     }
 

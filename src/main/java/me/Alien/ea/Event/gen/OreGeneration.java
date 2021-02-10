@@ -1,4 +1,4 @@
-package me.Alien.ea.world.gen;
+package me.Alien.ea.Event.gen;
 
 import me.Alien.ea.setup.ModBlock;
 import net.minecraft.block.BlockState;

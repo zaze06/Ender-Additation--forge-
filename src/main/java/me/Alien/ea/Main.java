@@ -16,7 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import me.Alien.ea.setup.Registration;
-import me.Alien.ea.world.gen.OreGeneration;
+import me.Alien.ea.Event.gen.OreGeneration;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Main.ModId)

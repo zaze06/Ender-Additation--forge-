@@ -1,0 +1,15 @@
+{
+    "item.ea.enderite_pickaxe": "Enderite Pickaxe",
+    "item.ea.enderite_axe": "Enderite Axe",
+    "item.ea.enderite_shovel": "Enderite Shovel",
+    "item.ea.enderite_hoe": "Enderite Hoe",
+    "item.ea.enderite_sword": "Enderite Sword",
+    "item.ea.enderite_ingot": "Enderite Ingot",
+    "item.ea.enderite_boots": "Enderite Boots",
+    "item.ea.enderite_legings": "Enderite Legings",
+    "item.ea.enderite_chestplate": "Enderite Chestplate",
+    "item.ea.enderite_helmet": "Enderite Helmet",
+    "item.ea.enderite_scrap": "Enderite scrap",
+    "itemGroup.ender_addition": "Enderite Addition",
+    "block.ea.ender_debri": "Ender debri"
+}

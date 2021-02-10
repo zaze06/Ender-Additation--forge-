@@ -1,5 +1,6 @@
 package me.Alien.ea;
 
+import me.Alien.ea.Event.Events;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -16,7 +17,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import me.Alien.ea.setup.Registration;
-import me.Alien.ea.Event.gen.OreGeneration;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(Main.ModId)
@@ -39,7 +39,8 @@ public class Main
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOrs);
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, Events::generateOrs);
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, Events::GenToolTip);
         
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

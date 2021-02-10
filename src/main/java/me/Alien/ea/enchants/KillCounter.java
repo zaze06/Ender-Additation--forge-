@@ -18,7 +18,7 @@ public class KillCounter extends Enchantment {
         super(Rarity.RARE, EnchantmentType.WEAPON, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
     }
 
-    int[] Max = {
+    public static int[] Max = {
             0,
             250,
             500,
@@ -47,16 +47,12 @@ public class KillCounter extends Enchantment {
     }
 
     @Override
-    public ITextComponent getDisplayName(int level) {
-        String Name = "Killed 0/"+Max[level];
-        return ITextComponent.getTextComponentOrEmpty(Name);
-    }
-
-    @Override
     public void onEntityDamaged(LivingEntity user, Entity targetE, int level) {
         if(targetE instanceof LivingEntity){
             ItemStack Item = user.getHeldItemMainhand();
             CompoundNBT Tag = Item.getOrCreateChildTag(Main.ModId);
+            if(!(((LivingEntity) targetE).getHealth()<=0))
+                return;
             if(!Tag.contains("Kills", 3)){
                 Tag.putInt("Kills", 0);
             }

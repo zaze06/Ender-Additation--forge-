@@ -19,6 +19,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
@@ -67,7 +69,7 @@ public class EnderiteTools {
 			Tag.putInt("Uses", 5);
 		}
 
-		if(Tag.getInt("Uses")<1)
+		if(Tag.getInt("Uses")<=0)
 			return true;
 
 		LivingEntity target = targetE;
@@ -101,10 +103,6 @@ public class EnderiteTools {
 			System.out.println("Try no: " + trays + " failed: try to move to : " + X + " : " + Y + " : " + Z);
 			trays++;
 		}
-
-
-
-
 		return true;
 	}
 
@@ -121,12 +119,12 @@ public class EnderiteTools {
 		public Sword() {
 			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
 			CompoundNBT Tag = (new ItemStack(this)).getOrCreateTag();
-			Tag.putInt("IsShield", 0);
 			Tag.putInt("Uses", 5);
 
 		}
 
 		@Override
+		@OnlyIn(Dist.DEDICATED_SERVER)
 		public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 			return EnderiteTools.damage(stack, attacker, target);
 		}
@@ -155,27 +153,27 @@ public class EnderiteTools {
 
 			return ActionResult.resultSuccess(Player.getHeldItem(hand));
 		}
-
-		@Override
-		public boolean isShield(ItemStack stack, @Nullable LivingEntity entity) {
-			CompoundNBT Tag = stack.getOrCreateChildTag(Main.ModId);
-			if(Tag.contains("IsShield", Constants.NBT.TAG_INT)){
-				int IsShield = Tag.getInt("IsShield");
-				if(IsShield == 1){
-					return true;
-				}else{
-					return false;
-				}
-			}else{
-				Tag.putInt("IsShield", 0);
-			}
-			return false;
-		}
 	}
 
 	public static class Pickaxe extends PickaxeItem{
 
 		public Pickaxe() {
+			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
+		}
+
+		@Override
+		public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+			EnderiteTools.addInformation(stack, worldIn, tooltip, flagIn);
+		}
+
+		@Override
+		public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+			return EnderiteTools.damage(stack, attacker, target);
+		}
+	}
+
+	public static class Axe extends AxeItem{
+		public Axe() {
 			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
 		}
 

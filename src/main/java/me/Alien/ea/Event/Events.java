@@ -16,6 +16,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
@@ -26,6 +27,7 @@ import net.minecraft.world.gen.feature.template.TagMatchRuleTest;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
@@ -50,14 +52,17 @@ public class Events {
     public static void GenToolTip(final ItemTooltipEvent event){
         ItemStack stack = event.getItemStack();
         CompoundNBT Tag = stack.getOrCreateChildTag(Main.ModId);
+        List<ITextComponent> Tip = event.getToolTip();
         if(Tag.contains("Kills", 3)){
             int Level = EnchantmentHelper.getEnchantmentLevel(ModEnchants.KillCounter.get(), stack);
             if(Level == 0)
                 return;
-            List<ITextComponent> Tip = event.getToolTip();
-            String Data = "Kiils "+Tag.getInt("Kills")+"/"+ KillCounter.Max[Level];
-            Tip.add(ITextComponent.getTextComponentOrEmpty(Data));
+            String Data = "Kills "+Tag.getInt("Kills")+"/"+ KillCounter.Max[Level];
+            Tip.add(1, ITextComponent.getTextComponentOrEmpty(Data));
             event.setResult(Event.Result.ALLOW);
+        }
+        if(Tag.contains("Uses", 5)){
+            Tip.add(2, new StringTextComponent("\u00A78" + "Teleport charges left: " + stack.getOrCreateChildTag(Main.ModId).getInt("Uses")));
         }
     }
 

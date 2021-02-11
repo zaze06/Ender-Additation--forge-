@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"0": "mod:block/ender_debri_side",
-		"1": "mod:block/ender_debri_top"
+		"0": "ea:block/ender_debri_side",
+		"1": "ea:block/ender_debri_top"
 	},
 	"elements": [
 		{

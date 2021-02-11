@@ -65,11 +65,11 @@ public class EnderiteTools {
 	public static boolean damage(ItemStack stack, LivingEntity player, LivingEntity targetE){
 		CompoundNBT Tag = stack.getOrCreateChildTag(Main.ModId);
 
-		if(Tag.contains("Uses", Constants.NBT.TAG_INT)){
+		if(Tag.contains("Uses", Constants.NBT.TAG_FLOAT)){
 			Tag.putInt("Uses", 5);
 		}
 
-		if(Tag.getInt("Uses")<=0)
+		if(!(Tag.getFloat("Uses")>0))
 			return true;
 
 		LivingEntity target = targetE;
@@ -96,8 +96,8 @@ public class EnderiteTools {
 				Vector3d End = target.getPositionVec();
 				System.out.println("Try no: " + trays + " completed: move to : " + X + " : " + Y + " : " + Z + " : Distance: " + Start.distanceTo(End) + " : Maximum distance: 24");
 
-				Tag.remove("Uses");
-				Tag.putInt("Uses", Tag.getInt("Uses")-1);
+				//Tag.remove("Uses");
+				Tag.putFloat("Uses", Tag.getFloat("Uses")-1);
 				break;
 			}
 			System.out.println("Try no: " + trays + " failed: try to move to : " + X + " : " + Y + " : " + Z);
@@ -108,8 +108,8 @@ public class EnderiteTools {
 
 
 	public static void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		if (!stack.getOrCreateChildTag(Main.ModId).contains("Uses", Constants.NBT.TAG_INT)) {
-			stack.getOrCreateChildTag(Main.ModId).putInt("Uses", 5);
+		if (!stack.getOrCreateChildTag(Main.ModId).contains("Uses", Constants.NBT.TAG_FLOAT)) {
+			stack.getOrCreateChildTag(Main.ModId).putFloat("Uses", 5);
 		}
 		tooltip.add(new StringTextComponent("\u00A78" + "Teleport charges left: " + stack.getOrCreateChildTag(Main.ModId).getInt("Uses")));
 	}
@@ -119,12 +119,11 @@ public class EnderiteTools {
 		public Sword() {
 			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
 			CompoundNBT Tag = (new ItemStack(this)).getOrCreateTag();
-			Tag.putInt("Uses", 5);
+			Tag.putFloat("Uses", 5);
 
 		}
 
 		@Override
-		@OnlyIn(Dist.DEDICATED_SERVER)
 		public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 			return EnderiteTools.damage(stack, attacker, target);
 		}
@@ -198,5 +197,9 @@ public class EnderiteTools {
 		public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
 			return EnderiteTools.damage(stack, attacker, target);
 		}
+
+		public float intToFloat(int in){
+			final float in1 = in;
+			return in1;}
 	}
 }

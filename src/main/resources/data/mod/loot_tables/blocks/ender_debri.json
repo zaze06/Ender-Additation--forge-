@@ -6,17 +6,7 @@
         "entries": [
           {
             "type": "minecraft:item",
-            "name": "mod:ender_debri"
-          }
-        ]
-      },
-      {
-        "rolls": 0,
-        "bonus_rolls": 1,
-        "entries": [
-          {
-            "type": "minecraft:item",
-            "name": "mod:ender_debri"
+            "name": "ea:ender_debri"
           }
         ]
       }

@@ -12,6 +12,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.common.util.Constants;
 
 public class KillCounter extends Enchantment {
     public KillCounter() {
@@ -42,8 +43,8 @@ public class KillCounter extends Enchantment {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) {
-        return super.canApply(stack);
+    public int getMaxLevel() {
+        return 4;
     }
 
     @Override
@@ -51,12 +52,12 @@ public class KillCounter extends Enchantment {
         if(targetE instanceof LivingEntity){
             ItemStack Item = user.getHeldItemMainhand();
             CompoundNBT Tag = Item.getOrCreateChildTag(Main.ModId);
-            if(!(((LivingEntity) targetE).getHealth()<=0))
+            if(targetE.isAlive())
                 return;
-            if(!Tag.contains("Kills", 3)){
+            if(!Tag.contains("Kills", Constants.NBT.TAG_FLOAT)){
                 Tag.putInt("Kills", 0);
             }
-            Tag.putInt("Kills", Tag.getInt("Kills")+1);
+            Tag.putFloat("Kills", (float) (Tag.getFloat("Kills")+0.5));
         }
     }
 }

@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "mod:block/ender_debri"}
+        "": { "model": "ea:block/ender_debri"}
     }
 }

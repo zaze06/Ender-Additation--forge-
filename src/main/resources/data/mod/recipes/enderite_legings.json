@@ -4,9 +4,9 @@
         "item": "minecraft:netherite_leggings"
     },
     "addition": {
-        "item": "mod:enderite_ingot"
+        "item": "ea:enderite_ingot"
     },
     "result": {
-        "item": "mod:enderite_legings"
+        "item": "ea:enderite_legings"
     }
 }

@@ -12,7 +12,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ModBlock {
-	public static final RegistryObject<Block> ENDER_DEBRI = register("ender_debri", () ->
+	public static final RegistryObject<Block> ENDER_DEBRI = register("ender_debris", () ->
 		new Block(AbstractBlock.Properties
 				.create(Material.ROCK)
 				.hardnessAndResistance(30, 1200)

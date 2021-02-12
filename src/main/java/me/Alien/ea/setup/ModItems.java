@@ -1,5 +1,8 @@
 package me.Alien.ea.setup;
 
+import me.Alien.ea.Arrmor.Enderite.ArmorMaterial;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.RegistryObject;
@@ -25,6 +28,17 @@ public class ModItems {
 			new EnderiteTools.Shovel());
 	public static final RegistryObject<Item> ENDERITE_HOE = Registration.ITEMS.register("enderite_hoe", () ->
 			new EnderiteTools.Hoe());
+
+	// Armor
+
+	public static final RegistryObject<ArmorItem> ENDERITE_HELMET = Registration.ITEMS.register("enderite_helmet", () ->
+			new ArmorItem(ArmorMaterial.ARMOR_MATERIAL, EquipmentSlotType.HEAD, new Item.Properties().group(ModItemGroup.ENDER_ADDITION)));
+	public static final RegistryObject<ArmorItem> ENDERITE_CHESTPLATE = Registration.ITEMS.register("enderite_chestplate", () ->
+			new ArmorItem(ArmorMaterial.ARMOR_MATERIAL, EquipmentSlotType.CHEST, new Item.Properties().group(ModItemGroup.ENDER_ADDITION)));
+	public static final RegistryObject<ArmorItem> ENDERITE_LEGGINGS = Registration.ITEMS.register("enderite_leggings", () ->
+			new ArmorItem(ArmorMaterial.ARMOR_MATERIAL, EquipmentSlotType.LEGS, new Item.Properties().group(ModItemGroup.ENDER_ADDITION)));
+	public static final RegistryObject<ArmorItem> ENDERITE_BOOTS = Registration.ITEMS.register("enderite_boots", () ->
+			new ArmorItem(ArmorMaterial.ARMOR_MATERIAL, EquipmentSlotType.FEET, new Item.Properties().group(ModItemGroup.ENDER_ADDITION)));
 
 	static void register() {
 	}

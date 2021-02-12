@@ -2,6 +2,7 @@ package me.Alien.ea.setup;
 
 import me.Alien.ea.enchants.KillCounter;
 import me.Alien.ea.enchants.TntRain;
+import me.Alien.ea.enchants.XPBoost;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -11,6 +12,8 @@ public class ModEnchants {
 	//		new TntRain());
 	public static final RegistryObject<Enchantment> KillCounter = Registration.ENCHANT.register("kill_counter", () ->
 			new KillCounter());
+	public static final RegistryObject<Enchantment> XPBoost = Registration.ENCHANT.register("xp_boost", () ->
+			new XPBoost());
 	
 	public static void register() {}
 }

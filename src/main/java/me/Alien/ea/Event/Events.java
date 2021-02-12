@@ -5,19 +5,21 @@ import me.Alien.ea.enchants.KillCounter;
 import me.Alien.ea.setup.ModBlock;
 import me.Alien.ea.setup.ModEnchants;
 import me.Alien.ea.setup.ModItems;
+
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.Enchantment;
+
 import net.minecraft.enchantment.EnchantmentHelper;
+
 import net.minecraft.entity.player.PlayerEntity;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
+
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
+
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
@@ -26,12 +28,15 @@ import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.feature.template.TagMatchRuleTest;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
@@ -93,6 +98,22 @@ public class Events {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void LivingExperienceDropEvent(LivingExperienceDropEvent event){
+        ItemStack MainStack = event.getAttackingPlayer().getHeldItemMainhand();
+        ItemStack OffStack = event.getAttackingPlayer().getHeldItemOffhand();
+        int enchantLevel = 0;
+        if(EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), MainStack)>enchantLevel){
+            enchantLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), MainStack);
+        }
+        if(EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), OffStack)>enchantLevel){
+            enchantLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), OffStack);
+        }
+        int Exp = (int) (Math.random() * (((event.getDroppedExperience()*3)*enchantLevel)-(20*enchantLevel)+1)+(20*enchantLevel));
+        event.setDroppedExperience(Exp);
+        System.out.println("Droped xp from " + event.getEntity().getDisplayName().getString() + " is " + Exp + " out of " + ((event.getDroppedExperience()*3)*enchantLevel));
     }
 
     private static void GenerateOre(BiomeGenerationSettingsBuilder settings, RuleTest fillerType,

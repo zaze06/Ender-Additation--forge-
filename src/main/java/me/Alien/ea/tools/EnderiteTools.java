@@ -83,7 +83,7 @@ public class EnderiteTools {
 
 		int trays = 0;
 
-		while(trays < 30){//i här bler det fel
+		while(trays < 30){
 			double X = (Math.random() * (maxX-minX+1)+minZ);
 			double Y = (Math.random() * (maxY-minY+1)+minY);
 			double Z = (Math.random() * (maxZ-minZ+1)+minZ);

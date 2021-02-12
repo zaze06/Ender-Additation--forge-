@@ -13,7 +13,22 @@ import net.minecraft.util.text.ITextComponent;
 public class XPBoost extends Enchantment {
 
     public XPBoost() {
-        super(Rarity.UNCOMMON, EnchantmentType.BREAKABLE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+        super(Rarity.VERY_RARE, EnchantmentType.BREAKABLE, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
+    }
+
+    @Override
+    public boolean isTreasureEnchantment() {
+        return true;
+    }
+
+    @Override
+    public boolean canGenerateInLoot() {
+        return false;
+    }
+
+    @Override
+    public boolean canVillagerTrade() {
+        return false;
     }
 
     @Override

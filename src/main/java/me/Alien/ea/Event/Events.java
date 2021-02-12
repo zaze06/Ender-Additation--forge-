@@ -112,8 +112,9 @@ public class Events {
             enchantLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), OffStack);
         }
         int Exp = (int) (Math.random() * (((event.getDroppedExperience()*3)*enchantLevel)-(20*enchantLevel)+1)+(20*enchantLevel));
+        int MaxExp = (int) ((event.getDroppedExperience())*enchantLevel);
         event.setDroppedExperience(Exp);
-        System.out.println("Droped xp from " + event.getEntity().getDisplayName().getString() + " is " + Exp + " out of " + ((event.getDroppedExperience()*3)*enchantLevel));
+        System.out.println("Droped xp from " + event.getEntity().getDisplayName().getString() + " is " + Exp + " out of " + MaxExp);
     }
 
     private static void GenerateOre(BiomeGenerationSettingsBuilder settings, RuleTest fillerType,

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "ea:item/enderite_legings"
+        "layer0": "ea:item/enderite_leggings"
     }
 }

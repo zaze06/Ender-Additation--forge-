@@ -11,6 +11,9 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ActionResult;
@@ -29,6 +32,7 @@ import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
@@ -92,6 +96,16 @@ public class Events {
                         NBTTAGS.putInt("Uses", NBTTAGS.getInt("Uses")+1);
                     }
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLootTablesLoaded(LootTableLoadEvent event){
+        if(event.getName().equals(LootTables.GAMEPLAY_FISHING_TREASURE)){
+            final LootPool main = event.getTable().getPool("main");
+            if(main != null){
+                main.
             }
         }
     }

@@ -1,7 +1,7 @@
 {
 	"type": "minecraft:smelting",
 	"ingredient": {
-	    "item": "ea:ender_debri"
+	    "item": "ea:ender_debris"
 	},
 	"result": "ea:enderite_scrap",
 	"experience": 0.1,

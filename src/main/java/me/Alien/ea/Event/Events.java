@@ -100,7 +100,7 @@ public class Events {
         }
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void onLootTablesLoaded(LootTableLoadEvent event){
         if(event.getName().equals(LootTables.GAMEPLAY_FISHING_TREASURE)){
             final LootPool main = event.getTable().getPool("main");
@@ -108,7 +108,7 @@ public class Events {
                 main.
             }
         }
-    }
+    }*/
 
     @SubscribeEvent
     public static void LivingExperienceDropEvent(LivingExperienceDropEvent event){

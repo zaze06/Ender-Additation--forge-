@@ -1,4 +1,5 @@
-{{
+{
+"conditions": [{
 "type": "item",
 "weight": 1,
 "name": "minecraft:book",
@@ -7,7 +8,7 @@
 "chance": 0.0001
 }],
 "functions": [{
-function": "set_nbt",
+"function": "set_nbt",
 "tag": "{Enchantments:[{id:\"ea:xp_boost\",lvl:1s}]}"
 }]},
 {
@@ -81,4 +82,4 @@ function": "set_nbt",
 "functions": [{
 "function": "set_nbt",
 "tag": "{Enchantments:[{id:\"ea:xp_boost\",lvl:7s}]}"
-}]}}
+}]}]}

@@ -111,7 +111,7 @@ public class EnderiteTools {
 		if (!stack.getOrCreateChildTag(Main.ModId).contains("Uses", Constants.NBT.TAG_FLOAT)) {
 			stack.getOrCreateChildTag(Main.ModId).putFloat("Uses", 5);
 		}
-		tooltip.add(new StringTextComponent("\u00A78" + "Teleport charges left: " + stack.getOrCreateChildTag(Main.ModId).getInt("Uses")));
+		//tooltip.add(new StringTextComponent("\u00A78" + "Teleport charges left: " + stack.getOrCreateChildTag(Main.ModId).getInt("Uses")));
 	}
 
 	public static class Sword extends SwordItem {

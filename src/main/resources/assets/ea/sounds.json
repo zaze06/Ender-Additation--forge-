@@ -1,3 +1,3 @@
 {
-    "block.mine.ender_debri": {"category": "block", "sounds": ["mod:ender_debri"], "subtitle": "Mining ender debri"}
+    "block.mine.ender_debri": {"category": "block", "sounds": ["ea:ender_debri"], "subtitle": "Mining ender debri"}
 }

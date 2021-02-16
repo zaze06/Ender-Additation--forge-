@@ -1,5 +1,6 @@
 package me.Alien.ea.setup;
 
+import me.Alien.ea.Energy.Block.BlockReg;
 import me.Alien.ea.Main;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -27,6 +28,7 @@ public class Registration {
 		ModBlock.register();
 		ModSound.register();
 		ModEnchants.register();
+		BlockReg.register();
 	}
 	
 	

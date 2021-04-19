@@ -17,7 +17,7 @@ public class ModBlock {
 				.create(Material.ROCK)
 				.hardnessAndResistance(30, 1200)
 				.harvestLevel(4)
-				.sound(SoundTypes.ENDER_DEBRI)),
+				.sound(SoundTypes.METAL)),
 		new Item.Properties()
 			.isImmuneToFire()
 			.group(ItemGroup.BUILDING_BLOCKS)

@@ -65,7 +65,7 @@ public class EnderiteTools {
 	public static boolean damage(ItemStack stack, LivingEntity player, LivingEntity targetE){
 		CompoundNBT Tag = stack.getOrCreateChildTag(Main.ModId);
 
-		if(Tag.contains("Uses", Constants.NBT.TAG_FLOAT)){
+		if(!Tag.contains("Uses", Constants.NBT.TAG_FLOAT)){
 			Tag.putInt("Uses", 5);
 		}
 
@@ -84,7 +84,7 @@ public class EnderiteTools {
 		int trays = 0;
 
 		while(trays < 30){
-			double X = (Math.random() * (maxX-minX+1)+minZ);
+			double X = (Math.random() * (maxX-minX+1)+minX);
 			double Y = (Math.random() * (maxY-minY+1)+minY);
 			double Z = (Math.random() * (maxZ-minZ+1)+minZ);
 

@@ -71,6 +71,7 @@ public class EnderiteTools {
 			Tag.putInt("Uses", 5);
 		}
 
+
 		if(!(Tag.getInt("Uses")>0))
 			return true;
 
@@ -150,11 +151,15 @@ public class EnderiteTools {
 		if(Uses == 5){
 			return ActionResult.resultPass(stack);
 		}
+		if(!stack.getOrCreateChildTag(Main.ModId).contains("MaxUses", Constants.NBT.TAG_INT)){
+			stack.getOrCreateChildTag(Main.ModId).putInt("MaxUses", 5);
+		}
+		int maxUses = stack.getOrCreateChildTag(Main.ModId).getInt("MaxUses");
 
 		System.out.println("Uses != 5");
 
         final int count = pearl.getCount();
-        for(int i = 0; (i < count) && (i < 5) && (Uses < 5); i++){
+        for(int i = 0; (i < count) && (i < maxUses) && (Uses < maxUses); i++){
 			stack.getOrCreateChildTag(Main.ModId).putInt("Uses", Uses+1);
 			Uses=stack.getOrCreateChildTag(Main.ModId).getInt("Uses");
 			pearl.setCount(pearl.getCount()-1);

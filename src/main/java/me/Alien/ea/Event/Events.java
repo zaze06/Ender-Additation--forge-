@@ -66,7 +66,7 @@ public class Events {
             Tip.add(1, ITextComponent.getTextComponentOrEmpty(Data));
             event.setResult(Event.Result.ALLOW);
         }
-        if(Tag.contains("Uses", 5)){
+        if(Tag.contains("Uses", 3)){
             Tip.add(2, new StringTextComponent("\u00A78" + "Teleport charges left: " + stack.getOrCreateChildTag(Main.ModId).getInt("Uses")));
         }
     }

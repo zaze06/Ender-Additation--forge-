@@ -8,6 +8,8 @@ import me.Alien.ea.setup.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
@@ -65,11 +67,11 @@ public class EnderiteTools {
 	public static boolean damage(ItemStack stack, LivingEntity player, LivingEntity targetE){
 		CompoundNBT Tag = stack.getOrCreateChildTag(Main.ModId);
 
-		if(!Tag.contains("Uses", Constants.NBT.TAG_FLOAT)){
+		if(!Tag.contains("Uses", Constants.NBT.TAG_INT)){
 			Tag.putInt("Uses", 5);
 		}
 
-		if(!(Tag.getFloat("Uses")>0))
+		if(!(Tag.getInt("Uses")>0))
 			return true;
 
 		LivingEntity target = targetE;
@@ -97,7 +99,7 @@ public class EnderiteTools {
 				System.out.println("Try no: " + trays + " completed: move to : " + X + " : " + Y + " : " + Z + " : Distance: " + Start.distanceTo(End) + " : Maximum distance: 24");
 
 				//Tag.remove("Uses");
-				Tag.putFloat("Uses", Tag.getFloat("Uses")-1);
+				Tag.putInt("Uses", Tag.getInt("Uses")-1);
 				break;
 			}
 			System.out.println("Try no: " + trays + " failed: try to move to : " + X + " : " + Y + " : " + Z);
@@ -108,10 +110,59 @@ public class EnderiteTools {
 
 
 	public static void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		if (!stack.getOrCreateChildTag(Main.ModId).contains("Uses", Constants.NBT.TAG_FLOAT)) {
-			stack.getOrCreateChildTag(Main.ModId).putFloat("Uses", 5);
+		if (!stack.getOrCreateChildTag(Main.ModId).contains("Uses", Constants.NBT.TAG_INT)) {
+			stack.getOrCreateChildTag(Main.ModId).putInt("Uses", 5);
 		}
 		//tooltip.add(new StringTextComponent("\u00A78" + "Teleport charges left: " + stack.getOrCreateChildTag(Main.ModId).getInt("Uses")));
+	}
+
+	private static ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+
+		ItemStack stack = playerIn.getHeldItem(handIn);
+		//ItemStack perl = null;
+		int Uses = 0;
+
+		/*if(playerIn.inventory.hasItemStack(Items.ENDER_PEARL.getDefaultInstance())){
+			final int slotFor = playerIn.inventory.getSlotFor(Items.ENDER_PEARL.getDefaultInstance());
+			System.out.println(slotFor);
+			System.out.println(Items.ENDER_PEARL.getDefaultInstance());
+			perl = playerIn.inventory.getStackInSlot(slotFor);
+		}else{
+			
+		}*/
+		System.out.println("EnderiteTools:Use");
+        ItemStack pearl = null;
+        for(ItemStack testStack : playerIn.inventory.mainInventory) {
+            if(testStack.getItem().equals(Items.ENDER_PEARL)) {
+                pearl = testStack;
+            }
+        }
+        if(pearl == null) {
+            return ActionResult.resultPass(stack);
+        }
+
+        System.out.println("Pearl exist");
+		if (!stack.getOrCreateChildTag(Main.ModId).contains("Uses", Constants.NBT.TAG_INT)) {
+			stack.getOrCreateChildTag(Main.ModId).putInt("Uses", 5);
+		}
+
+		Uses = stack.getOrCreateChildTag(Main.ModId).getInt("Uses");
+		if(Uses == 5){
+			return ActionResult.resultPass(stack);
+		}
+
+		System.out.println("Uses != 5");
+
+        final int count = pearl.getCount();
+        for(int i = 0; (i < count) && (i < 5) && (Uses < 5); i++){
+			stack.getOrCreateChildTag(Main.ModId).putInt("Uses", Uses+1);
+			Uses=stack.getOrCreateChildTag(Main.ModId).getInt("Uses");
+			pearl.setCount(pearl.getCount()-1);
+		}
+
+        System.out.println("Finished loop " + Uses + " " + count + " "+ pearl.getCount());
+
+		return ActionResult.resultPass(stack);
 	}
 
 	public static class Sword extends SwordItem {
@@ -119,8 +170,13 @@ public class EnderiteTools {
 		public Sword() {
 			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
 			CompoundNBT Tag = (new ItemStack(this)).getOrCreateTag();
-			Tag.putFloat("Uses", 5);
+			Tag.putInt("Uses", 5);
 
+		}
+
+		@Override
+		public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+			return EnderiteTools.use(worldIn, playerIn, handIn);
 		}
 
 		@Override

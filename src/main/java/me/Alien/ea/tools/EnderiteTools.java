@@ -150,13 +150,13 @@ public class EnderiteTools {
 			stack.getOrCreateChildTag(Main.ModId).putInt("Uses", 5);
 		}
 
+		int maxUses = Teleport.getMax(EnchantmentHelper.getEnchantmentLevel(ModEnchants.Teleport.get(), stack));
 		Uses = stack.getOrCreateChildTag(Main.ModId).getInt("Uses");
-		if(Uses == 5){
+		if(Uses == maxUses){
 			return ActionResult.resultPass(stack);
 		}
-		int maxUses = Teleport.getMax(EnchantmentHelper.getEnchantmentLevel(ModEnchants.Teleport.get(), stack));
 
-		System.out.println("Uses != 5");
+		System.out.println("Uses != "+maxUses);
 
         final int count = pearl.getCount();
         for(int i = 0; (i < count) && (i < maxUses) && (Uses < maxUses); i++){

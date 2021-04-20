@@ -5,7 +5,7 @@ import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 
 public class Teleport extends Enchantment {
-    protected Teleport() {
+    public Teleport() {
         super(Rarity.UNCOMMON, EnchantmentType.WEAPON, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND});
     }
 
@@ -14,10 +14,18 @@ public class Teleport extends Enchantment {
         return 4;
     }
 
-    public static int[] Max = {
+    static int[] max = {
+            5,
             8,
             14,
             16,
             24
     };
+
+    public static int getMax(int in) {
+        if((in > max.length)){
+            return 5;
+        }
+        return max[in];
+    }
 }

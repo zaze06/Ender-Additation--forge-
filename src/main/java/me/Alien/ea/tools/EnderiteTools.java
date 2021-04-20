@@ -3,9 +3,12 @@ package me.Alien.ea.tools;
 import java.util.List;
 
 import me.Alien.ea.Main;
+import me.Alien.ea.enchants.Teleport;
+import me.Alien.ea.setup.ModEnchants;
 import me.Alien.ea.setup.ModItemGroup;
 import me.Alien.ea.setup.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -151,10 +154,7 @@ public class EnderiteTools {
 		if(Uses == 5){
 			return ActionResult.resultPass(stack);
 		}
-		if(!stack.getOrCreateChildTag(Main.ModId).contains("MaxUses", Constants.NBT.TAG_INT)){
-			stack.getOrCreateChildTag(Main.ModId).putInt("MaxUses", 5);
-		}
-		int maxUses = stack.getOrCreateChildTag(Main.ModId).getInt("MaxUses");
+		int maxUses = Teleport.getMax(EnchantmentHelper.getEnchantmentLevel(ModEnchants.Teleport.get(), stack));
 
 		System.out.println("Uses != 5");
 

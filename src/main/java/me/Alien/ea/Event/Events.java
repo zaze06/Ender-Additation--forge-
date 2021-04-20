@@ -65,7 +65,7 @@ public class Events {
     }
 
     @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
+    //@OnlyIn(Dist.CLIENT)
     public static void giveGuid(EntityJoinWorldEvent event){
 
         if (!(event.getEntity() instanceof PlayerEntity))
@@ -73,6 +73,7 @@ public class Events {
 
         /*event.getEntity().sendMessage(,
                 UUID.fromString("40b7dc92-3562-4ffd-9848-86d5327f4b08"));*/
+        //((PlayerEntity) event.getEntity()).get
         ((PlayerEntity) event.getEntity()).sendStatusMessage(ITextComponent.getTextComponentOrEmpty("This mod has no ingame wiki yet so the wiki exist on the github page link: "), false);
 
         /*ItemStack book = Items.WRITABLE_BOOK.getDefaultInstance();

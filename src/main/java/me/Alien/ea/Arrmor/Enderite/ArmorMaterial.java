@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 
 public enum ArmorMaterial implements IArmorMaterial {
 
-    ARMOR_MATERIAL("enderite", 3800, new int[] {2, 6, 7, 3}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 6.0F, 5.0F, () -> Ingredient.fromItems(ModItems.ENDERITE_INGOT.get()));
+    ARMOR_MATERIAL("enderite", 3800, new int[] {4, 8, 9, 5}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 6.0F, 5.0F, () -> Ingredient.fromItems(ModItems.ENDERITE_INGOT.get()));
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
     private final String name;

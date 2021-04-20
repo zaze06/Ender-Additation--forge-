@@ -26,6 +26,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
@@ -41,7 +42,7 @@ public class EnderiteTools {
 
 		@Override
 		public float getEfficiency() {
-			return 10;
+			return 13;
 		}
 
 		@Override
@@ -73,7 +74,6 @@ public class EnderiteTools {
 		if(!Tag.contains("Uses", Constants.NBT.TAG_INT)){
 			Tag.putInt("Uses", 5);
 		}
-
 
 		if(!(Tag.getInt("Uses")>0))
 			return true;

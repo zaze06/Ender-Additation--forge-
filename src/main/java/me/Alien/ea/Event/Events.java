@@ -74,7 +74,14 @@ public class Events {
         /*event.getEntity().sendMessage(,
                 UUID.fromString("40b7dc92-3562-4ffd-9848-86d5327f4b08"));*/
         //((PlayerEntity) event.getEntity()).get
-        ((PlayerEntity) event.getEntity()).sendStatusMessage(ITextComponent.getTextComponentOrEmpty("This mod has no ingame wiki yet so the wiki exist on the github page link: "), false);
+        //((PlayerEntity) event.getEntity()).sendStatusMessage(ITextComponent.getTextComponentOrEmpty
+        //        ("This mod has no ingame wiki yet so the wiki exist on the github page link: https://github.com/zaze06/Ender-Additation--forge-/wiki"), false);
+        String book = "written_book{display:{Name:'{\"text\":\"Ender addition guid\"}',Lore:['{\"text\":\"a guide to ender addition\"}']},title:\"\",author:\"\",pages:['[{\"text\":\"Ender addition is a mod insperid by the nether update\\\\nSo how an item can be use is liked below\\\\n\"},{\"text\":\"Ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\"\\\\n\"},{\"text\":\" Enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\"\\\\nEnderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}},{\"text\":\"\\\\nTool abilitys\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"4\"}}]','[{\"text\":\"Enderite scrap\\\\nHow to optain\\\\nPut \"},{\"text\":\"ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\" in a furnace\\\\nUsage\\\\n Combine 4 enderite scrap, 4 diamonds and one netherite scrap to get \"},{\"text\":\"enderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}}]','[{\"text\":\"Enderite ingot\\\\nHow to optain\\\\nCombine 4 \"},{\"text\":\"enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\", 4 diamonds and one netherite scrap\\\\nUsage\\\\nCombine one enderite ingot and a netherite item to get the enderite item\"}]','{\"text\":\"Item abilitys\\\\n Tools\\\\nAll the enderite tools has the ability to teleport the mob or player that is geting damage by an enderite tool\"}']} 1";
+        try {
+            event.getWorld().getServer().getCommandManager().getDispatcher().execute("give " + event.getEntity().getName().toString() + book, event.getWorld().getServer().getCommandSource());
+        }catch (Exception e){
+
+        }
 
         /*ItemStack book = Items.WRITABLE_BOOK.getDefaultInstance();
         CompoundNBT data = book.getOrCreateChildTag("");

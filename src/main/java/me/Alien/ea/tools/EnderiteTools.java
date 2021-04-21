@@ -198,7 +198,7 @@ public class EnderiteTools {
 	public static class Pickaxe extends PickaxeItem{
 
 		public Pickaxe() {
-			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
+			super(EnderiteTools.ItemTiers, 1, 2, EnderiteTools.prop);
 		}
 
 		@Override
@@ -214,7 +214,7 @@ public class EnderiteTools {
 
 	public static class Axe extends AxeItem{
 		public Axe() {
-			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
+			super(EnderiteTools.ItemTiers, 1, 2, EnderiteTools.prop);
 		}
 
 		@Override
@@ -230,7 +230,7 @@ public class EnderiteTools {
 
 	public static class Shovel extends SwordItem{
 		public Shovel() {
-			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
+			super(EnderiteTools.ItemTiers, 1, 2, EnderiteTools.prop);
 		}
 
 		@Override
@@ -246,7 +246,7 @@ public class EnderiteTools {
 
 	public static class Hoe extends HoeItem{
 		public Hoe() {
-			super(EnderiteTools.ItemTiers, 1, 1, EnderiteTools.prop);
+			super(EnderiteTools.ItemTiers, 1, 2, EnderiteTools.prop);
 		}
 
 		@Override

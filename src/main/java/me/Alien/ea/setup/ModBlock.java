@@ -20,8 +20,18 @@ public class ModBlock {
 				.sound(SoundTypes.METAL)),
 		new Item.Properties()
 			.isImmuneToFire()
-			.group(ItemGroup.BUILDING_BLOCKS)
+			.group(ModItemGroup.ENDER_ADDITION)
 	);
+
+	public static final RegistryObject<Block> ENDERITE_BLOCK = register("enderite_block", () ->
+			new Block(AbstractBlock.Properties
+				.create(Material.IRON)
+				.hardnessAndResistance(40, 1400)
+				.harvestLevel(4)
+				.sound(SoundTypes.METAL)),
+			new Item.Properties()
+				.isImmuneToFire()
+				.group(ModItemGroup.ENDER_ADDITION));
 	//public static 
 	
 	public static void register() {}

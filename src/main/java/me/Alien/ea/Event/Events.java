@@ -31,8 +31,10 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.template.IRuleTestType;
 import net.minecraft.world.gen.feature.template.RuleTest;
 import net.minecraft.world.gen.feature.template.TagMatchRuleTest;
+import net.minecraft.world.gen.placement.ConfiguredPlacement;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.api.distmarker.Dist;
@@ -51,6 +53,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 public class Events {
@@ -61,6 +64,7 @@ public class Events {
         if(event.getCategory().equals(Biome.Category.THEEND)) {
             //Main.LOGGER.error("ORE GEN IN END");
             GenerateOre(event.getGeneration(), new TagMatchRuleTest(Tags.Blocks.END_STONES), ModBlock.ENDER_DEBRI.get().getDefaultState(), 2, 40, 70, 1);
+
         }
     }
 
@@ -76,9 +80,10 @@ public class Events {
         //((PlayerEntity) event.getEntity()).get
         //((PlayerEntity) event.getEntity()).sendStatusMessage(ITextComponent.getTextComponentOrEmpty
         //        ("This mod has no ingame wiki yet so the wiki exist on the github page link: https://github.com/zaze06/Ender-Additation--forge-/wiki"), false);
-        String book = "written_book{display:{Name:'{\"text\":\"Ender addition guid\"}',Lore:['{\"text\":\"a guide to ender addition\"}']},title:\"\",author:\"\",pages:['[{\"text\":\"Ender addition is a mod insperid by the nether update\\\\nSo how an item can be use is liked below\\\\n\"},{\"text\":\"Ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\"\\\\n\"},{\"text\":\" Enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\"\\\\nEnderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}},{\"text\":\"\\\\nTool abilitys\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"4\"}}]','[{\"text\":\"Enderite scrap\\\\nHow to optain\\\\nPut \"},{\"text\":\"ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\" in a furnace\\\\nUsage\\\\n Combine 4 enderite scrap, 4 diamonds and one netherite scrap to get \"},{\"text\":\"enderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}}]','[{\"text\":\"Enderite ingot\\\\nHow to optain\\\\nCombine 4 \"},{\"text\":\"enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\", 4 diamonds and one netherite scrap\\\\nUsage\\\\nCombine one enderite ingot and a netherite item to get the enderite item\"}]','{\"text\":\"Item abilitys\\\\n Tools\\\\nAll the enderite tools has the ability to teleport the mob or player that is geting damage by an enderite tool\"}']} 1";
+        String book = " written_book{display:{Name:'{\"text\":\"Ender addition guid\"}',Lore:['{\"text\":\"a guide to ender addition\"}']},title:\"\",author:\"\",pages:['[{\"text\":\"Ender addition is a mod insperid by the nether update\\\\nSo how an item can be use is liked below\\\\n\"},{\"text\":\"Ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\"\\\\n\"},{\"text\":\" Enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\"\\\\nEnderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}},{\"text\":\"\\\\nTool abilitys\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"4\"}}]','[{\"text\":\"Enderite scrap\\\\nHow to optain\\\\nPut \"},{\"text\":\"ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\" in a furnace\\\\nUsage\\\\n Combine 4 enderite scrap, 4 diamonds and one netherite scrap to get \"},{\"text\":\"enderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}}]','[{\"text\":\"Enderite ingot\\\\nHow to optain\\\\nCombine 4 \"},{\"text\":\"enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\", 4 diamonds and one netherite scrap\\\\nUsage\\\\nCombine one enderite ingot and a netherite item to get the enderite item\"}]','{\"text\":\"Item abilitys\\\\n Tools\\\\nAll the enderite tools has the ability to teleport the mob or player that is geting damage by an enderite tool\"}']} 1";
         try {
             event.getWorld().getServer().getCommandManager().getDispatcher().execute("give " + event.getEntity().getName().toString() + book, event.getWorld().getServer().getCommandSource());
+            
         }catch (Exception e){
 
         }
@@ -154,6 +159,8 @@ public class Events {
 
     @SubscribeEvent
     public static void LivingExperienceDropEvent(LivingExperienceDropEvent event){
+        if(event.getEntity() instanceof PlayerEntity)
+            return;
         ItemStack MainStack = event.getAttackingPlayer().getHeldItemMainhand();
         ItemStack OffStack = event.getAttackingPlayer().getHeldItemOffhand();
         int enchantLevel = 0;
@@ -172,8 +179,9 @@ public class Events {
     private static void GenerateOre(BiomeGenerationSettingsBuilder settings, RuleTest fillerType,
                                     BlockState state, int veinSize, int minHight, int maxHight, int veinPerChunk) {
         //Main.LOGGER.error("MAKING ORE");
-        if(veinSize <= 6)
-            veinSize = 6;
+        /*if(veinSize <= 6)
+            veinSize = 6;*/
+
         settings.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
                 Feature.ORE.withConfiguration(new OreFeatureConfig(fillerType, state, veinSize))
                         .withPlacement(Placement.RANGE.configure(

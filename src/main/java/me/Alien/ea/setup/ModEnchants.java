@@ -13,8 +13,8 @@ public class ModEnchants {
 	//		new TntRain());
 	public static final RegistryObject<Enchantment> KillCounter = Registration.ENCHANT.register("kill_counter", () ->
 			new KillCounter());
-	public static final RegistryObject<Enchantment> XPBoost = Registration.ENCHANT.register("xp_boost", () ->
-			new XPBoost());
+	//public static final RegistryObject<Enchantment> XPBoost = Registration.ENCHANT.register("xp_boost", () ->
+	//		new XPBoost());
 	public static final RegistryObject<Enchantment> Teleport = Registration.ENCHANT.register("teleport", () ->
 			new Teleport());
 	

@@ -99,6 +99,7 @@ public class Events {
     }
 
     @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
     public static void GenToolTip(final ItemTooltipEvent event){
         ItemStack stack = event.getItemStack();
         CompoundNBT Tag = stack.getOrCreateChildTag(Main.ModId);
@@ -157,7 +158,7 @@ public class Events {
         }
     }*/
 
-    @SubscribeEvent
+    //@SubscribeEvent
     public static void LivingExperienceDropEvent(LivingExperienceDropEvent event){
         if(event.getEntity() instanceof PlayerEntity)
             return;
@@ -179,8 +180,8 @@ public class Events {
     private static void GenerateOre(BiomeGenerationSettingsBuilder settings, RuleTest fillerType,
                                     BlockState state, int veinSize, int minHight, int maxHight, int veinPerChunk) {
         //Main.LOGGER.error("MAKING ORE");
-        /*if(veinSize <= 6)
-            veinSize = 6;*/
+        if(veinSize <= 6)
+            veinSize = 6;
 
         settings.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
                 Feature.ORE.withConfiguration(new OreFeatureConfig(fillerType, state, veinSize))

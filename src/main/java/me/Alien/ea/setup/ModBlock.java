@@ -16,7 +16,7 @@ public class ModBlock {
 		new Block(AbstractBlock.Properties
 				.create(Material.ROCK)
 				.hardnessAndResistance(30, 1200)
-				.harvestLevel(4)
+				.harvestLevel(3)
 				.sound(SoundTypes.METAL)),
 		new Item.Properties()
 			.isImmuneToFire()

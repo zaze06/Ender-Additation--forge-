@@ -52,7 +52,7 @@ public class EnderiteTools {
 
 		@Override
 		public int getHarvestLevel() {
-			return 5;
+			return 4;
 		}
 
 		@Override

@@ -1,6 +1,5 @@
 package me.Alien.ea.Event;
 
-import com.sun.corba.se.impl.activation.CommandHandler;
 import me.Alien.ea.Main;
 import me.Alien.ea.enchants.KillCounter;
 import me.Alien.ea.enchants.Teleport;
@@ -12,6 +11,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -46,6 +47,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -80,7 +82,7 @@ public class Events {
         //((PlayerEntity) event.getEntity()).get
         //((PlayerEntity) event.getEntity()).sendStatusMessage(ITextComponent.getTextComponentOrEmpty
         //        ("This mod has no ingame wiki yet so the wiki exist on the github page link: https://github.com/zaze06/Ender-Additation--forge-/wiki"), false);
-        String book = " written_book{display:{Name:'{\"text\":\"Ender addition guid\"}',Lore:['{\"text\":\"a guide to ender addition\"}']},title:\"\",author:\"\",pages:['[{\"text\":\"Ender addition is a mod insperid by the nether update\\\\nSo how an item can be use is liked below\\\\n\"},{\"text\":\"Ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\"\\\\n\"},{\"text\":\" Enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\"\\\\nEnderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}},{\"text\":\"\\\\nTool abilitys\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"4\"}}]','[{\"text\":\"Enderite scrap\\\\nHow to optain\\\\nPut \"},{\"text\":\"ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\" in a furnace\\\\nUsage\\\\n Combine 4 enderite scrap, 4 diamonds and one netherite scrap to get \"},{\"text\":\"enderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}}]','[{\"text\":\"Enderite ingot\\\\nHow to optain\\\\nCombine 4 \"},{\"text\":\"enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\", 4 diamonds and one netherite scrap\\\\nUsage\\\\nCombine one enderite ingot and a netherite item to get the enderite item\"}]','{\"text\":\"Item abilitys\\\\n Tools\\\\nAll the enderite tools has the ability to teleport the mob or player that is geting damage by an enderite tool\"}']} 1";
+        String book = " minecraft:written_book{display:{Name:'{\"text\":\"Ender addition guid\"}',Lore:['{\"text\":\"a guide to ender addition\"}']},title:\"\",author:\"\",pages:['[{\"text\":\"Ender addition is a mod insperid by the nether update\\\\nSo how an item can be use is liked below\\\\n\"},{\"text\":\"Ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\"\\\\n\"},{\"text\":\" Enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\"\\\\nEnderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}},{\"text\":\"\\\\nTool abilitys\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"4\"}}]','[{\"text\":\"Enderite scrap\\\\nHow to optain\\\\nPut \"},{\"text\":\"ender debris\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"1\"}},{\"text\":\" in a furnace\\\\nUsage\\\\n Combine 4 enderite scrap, 4 diamonds and one netherite scrap to get \"},{\"text\":\"enderite ingot\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"3\"}}]','[{\"text\":\"Enderite ingot\\\\nHow to optain\\\\nCombine 4 \"},{\"text\":\"enderite scrap\",\"color\":\"dark_purple\",\"clickEvent\":{\"action\":\"change_page\",\"value\":\"2\"}},{\"text\":\", 4 diamonds and one netherite scrap\\\\nUsage\\\\nCombine one enderite ingot and a netherite item to get the enderite item\"}]','{\"text\":\"Item abilitys\\\\n Tools\\\\nAll the enderite tools has the ability to teleport the mob or player that is geting damage by an enderite tool\"}']} 1";
         try {
             event.getWorld().getServer().getCommandManager().getDispatcher().execute("give " + event.getEntity().getName().toString() + book, event.getWorld().getServer().getCommandSource());
             
@@ -98,23 +100,51 @@ public class Events {
         ((PlayerEntity) event.getEntity()).inventory.add(1, book);*/
     }
 
+    /*@SubscribeEvent
+    public static void TickEvent(final ServerPlayerEntity event){
+        PlayerInventory inv = event.inventory;
+        for(int i = 0; i < inv.getSizeInventory(); i++){
+            ItemStack stack = inv.getStackInSlot(i);
+            if (!(stack.getItem().equals(new ItemStack(ModItems.ENDERITE_PICKAXE.get())) || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_SWORD.get()))
+                    || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_AXE.get())) || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_SHOVEL.get()))
+                    || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_HOE.get()))) && (EnchantmentHelper.getEnchantmentLevel(ModEnchants.KillCounter.get(), stack) == 0)){
+
+                if(stack.getChildTag(Main.ModId) != null){
+                    stack.removeChildTag(Main.ModId);
+                }
+                return;
+            }
+        }
+    }*/
+
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
     public static void GenToolTip(final ItemTooltipEvent event){
         ItemStack stack = event.getItemStack();
-        CompoundNBT Tag = stack.getOrCreateChildTag(Main.ModId);
+        if (!(stack.getItem().equals(new ItemStack(ModItems.ENDERITE_PICKAXE.get())) || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_SWORD.get()))
+            || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_AXE.get())) || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_SHOVEL.get()))
+            || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_HOE.get()))) && (EnchantmentHelper.getEnchantmentLevel(ModEnchants.KillCounter.get(), stack) == 0)){
+
+            if(stack.getChildTag(Main.ModId) != null){
+                stack.removeChildTag(Main.ModId);
+            }
+            return;
+        }
+
+        CompoundNBT tag = stack.getOrCreateChildTag(Main.ModId);
+        if(tag == null) return;
         List<ITextComponent> Tip = event.getToolTip();
-        if(Tag.contains("Kills", 3)){
+        if(tag.contains("Kills", 3)){
             int Level = EnchantmentHelper.getEnchantmentLevel(ModEnchants.KillCounter.get(), stack);
             if(Level == 0)
                 return;
-            String Data = "Kills "+Tag.getInt("Kills")+"/"+ KillCounter.Max[Level];
-            Tip.add(1, ITextComponent.getTextComponentOrEmpty(Data));
+            String Data = "Kills "+tag.getInt("Kills")+"/"+ KillCounter.Max[Level];
+            Tip.add(1, new StringTextComponent(Data));
             event.setResult(Event.Result.ALLOW);
         }
 
         int maxUses = Teleport.getMax(EnchantmentHelper.getEnchantmentLevel(ModEnchants.Teleport.get(), stack));
-        if(Tag.contains("Uses", 3)){
+        if(tag.contains("Uses", 3)){
             Tip.add(2, new StringTextComponent("\u00A78" + "Teleport charges left: " + stack.getOrCreateChildTag(Main.ModId).getInt("Uses") + "/" + maxUses));
         }
     }
@@ -158,7 +188,7 @@ public class Events {
         }
     }*/
 
-    //@SubscribeEvent
+    @SubscribeEvent
     public static void LivingExperienceDropEvent(LivingExperienceDropEvent event){
         if(event.getEntity() instanceof PlayerEntity)
             return;
@@ -171,6 +201,8 @@ public class Events {
         if(EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), OffStack)>enchantLevel){
             enchantLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), OffStack);
         }
+        if (enchantLevel == 0)
+            return;
         int Exp = (int) (Math.random() * (((event.getDroppedExperience()*3)*enchantLevel)-(20*enchantLevel)+1)+(20*enchantLevel));
         int MaxExp = (int) ((event.getDroppedExperience())*enchantLevel);
         event.setDroppedExperience(Exp);

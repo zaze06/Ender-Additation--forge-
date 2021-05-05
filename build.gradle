@@ -16,9 +16,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.2'
+version = '1.4'
 group = 'me.alien.ea' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'Ender addition'
+archivesBaseName = 'Ender-addition'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 

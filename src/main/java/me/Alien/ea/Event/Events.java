@@ -10,6 +10,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.ai.attributes.Attribute;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -53,6 +55,8 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.event.ItemAttributeModifierEvent;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.List;
 import java.util.Random;
@@ -98,6 +102,14 @@ public class Events {
 
 
         ((PlayerEntity) event.getEntity()).inventory.add(1, book);*/
+    }
+
+    @SubscribeEvent
+    public static void modifier(ItemAttributeModifierEvent event){
+        ItemStack item = event.getItemStack();
+        if(EnchantmentHelper.getEnchantmentLevel(ModEnchants.KillCounter, item) > 0){
+            event.addModifier(Attribute, AttributeModifier.read(item.getTag()))
+        }
     }
 
     /*@SubscribeEvent

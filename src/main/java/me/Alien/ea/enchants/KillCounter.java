@@ -28,21 +28,6 @@ public class KillCounter extends Enchantment {
     };
 
     @Override
-    public boolean isTreasureEnchantment() {
-        return true;
-    }
-
-    @Override
-    public boolean isCurse() {
-        return true;
-    }
-
-    @Override
-    public boolean canVillagerTrade() {
-        return true;
-    }
-
-    @Override
     public int getMaxLevel() {
         return 4;
     }
@@ -52,7 +37,7 @@ public class KillCounter extends Enchantment {
         if(targetE instanceof LivingEntity){
             ItemStack Item = user.getHeldItemMainhand();
             CompoundNBT Tag = Item.getOrCreateChildTag(Main.ModId);
-            if(targetE.isAlive())
+            if(((LivingEntity) targetE).getHealth() > 0)
                 return;
             if(!Tag.contains("Kills", Constants.NBT.TAG_FLOAT)){
                 Tag.putInt("Kills", 0);

@@ -1,5 +1,6 @@
 package me.Alien.ea.Event;
 
+import com.sun.corba.se.impl.activation.CommandHandler;
 import me.Alien.ea.Main;
 import me.Alien.ea.enchants.KillCounter;
 import me.Alien.ea.enchants.Teleport;
@@ -47,7 +48,6 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickItem;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -99,23 +99,6 @@ public class Events {
 
         ((PlayerEntity) event.getEntity()).inventory.add(1, book);*/
     }
-
-    /*@SubscribeEvent
-    public static void TickEvent(final ServerPlayerEntity event){
-        PlayerInventory inv = event.inventory;
-        for(int i = 0; i < inv.getSizeInventory(); i++){
-            ItemStack stack = inv.getStackInSlot(i);
-            if (!(stack.getItem().equals(new ItemStack(ModItems.ENDERITE_PICKAXE.get())) || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_SWORD.get()))
-                    || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_AXE.get())) || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_SHOVEL.get()))
-                    || stack.getItem().equals(new ItemStack(ModItems.ENDERITE_HOE.get()))) && (EnchantmentHelper.getEnchantmentLevel(ModEnchants.KillCounter.get(), stack) == 0)){
-
-                if(stack.getChildTag(Main.ModId) != null){
-                    stack.removeChildTag(Main.ModId);
-                }
-                return;
-            }
-        }
-    }*/
 
     @SubscribeEvent
     @OnlyIn(Dist.CLIENT)
@@ -201,10 +184,10 @@ public class Events {
         if(EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), OffStack)>enchantLevel){
             enchantLevel = EnchantmentHelper.getEnchantmentLevel(ModEnchants.XPBoost.get(), OffStack);
         }
-        if (enchantLevel == 0)
+        if(enchantLevel == 0)
             return;
-        int Exp = (int) (Math.random() * (((event.getDroppedExperience()*3)*enchantLevel)-(20*enchantLevel)+1)+(20*enchantLevel));
-        int MaxExp = (int) ((event.getDroppedExperience())*enchantLevel);
+          int Exp = (int) (Math.random() * (((event.getDroppedExperience()*3)*enchantLevel)-(20*enchantLevel)+1)+(20*enchantLevel));
+        int MaxExp = (int) ((event.getDroppedExperience()*3)*enchantLevel);
         event.setDroppedExperience(Exp);
         System.out.println("Droped xp from " + event.getEntity().getDisplayName().getString() + " is " + Exp + " out of " + MaxExp);
     }

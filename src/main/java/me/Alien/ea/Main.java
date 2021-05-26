@@ -24,6 +24,7 @@ import javax.annotation.Signed;
 @Mod(Main.ModId)
 public class Main
 {
+
 	public static final String ModId = "ea";
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();

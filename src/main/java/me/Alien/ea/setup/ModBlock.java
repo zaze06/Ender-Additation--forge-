@@ -23,7 +23,7 @@ public class ModBlock {
 			.group(ModItemGroup.ENDER_ADDITION)
 	);
 
-	public static final RegistryObject<Block> ENDERITE_BLOCK = register("enderite_block", () ->
+	/*public static final RegistryObject<Block> ENDERITE_BLOCK = register("enderite_block", () ->
 			new Block(AbstractBlock.Properties
 				.create(Material.IRON)
 				.hardnessAndResistance(40, 1400)
@@ -31,7 +31,7 @@ public class ModBlock {
 				.sound(SoundTypes.METAL)),
 			new Item.Properties()
 				.isImmuneToFire()
-				.group(ModItemGroup.ENDER_ADDITION));
+				.group(ModItemGroup.ENDER_ADDITION));*/
 	//public static 
 	
 	public static void register() {}

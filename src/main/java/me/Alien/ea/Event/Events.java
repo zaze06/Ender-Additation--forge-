@@ -12,9 +12,11 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -107,8 +109,15 @@ public class Events {
     @SubscribeEvent
     public static void modifier(ItemAttributeModifierEvent event){
         ItemStack item = event.getItemStack();
-        if(EnchantmentHelper.getEnchantmentLevel(ModEnchants.KillCounter, item) > 0){
-            event.addModifier(Attribute, AttributeModifier.read(item.getTag()))
+        if(EnchantmentHelper.getEnchantmentLevel(ModEnchants.KillCounter.get(), item) > 0){
+            if(!event.getSlotType().equals(EquipmentSlotType.MAINHAND)) return;
+            CompoundNBT nbt = item.getOrCreateChildTag(Main.ModId);
+            if(!nbt.contains("Kills", Constants.NBT.TAG_INT)){
+                nbt.putInt("Kills", 0);
+            }
+            AttributeModifier dmg = new AttributeModifier(EquipmentSlotType.MAINHAND.getName(), nbt.getInt("Kills"), AttributeModifier.Operation.ADDITION);
+            if(event.getModifiers().containsValue(dmg)) return;
+            event.addModifier(Attributes.ATTACK_DAMAGE, dmg);
         }
     }
 

@@ -29,7 +29,8 @@ public class KillCounter extends Enchantment {
             250,
             500,
             750,
-            1000
+            1000,
+            1500
     };
 
     @Override
@@ -39,7 +40,7 @@ public class KillCounter extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -49,11 +50,10 @@ public class KillCounter extends Enchantment {
             CompoundNBT Tag = item.getOrCreateChildTag(Main.ModId);
             if(((LivingEntity) targetE).getHealth() > 0)
                 return;
-            if(!Tag.contains("Kills", Constants.NBT.TAG_FLOAT)){
+            if(!Tag.contains("Kills", Constants.NBT.TAG_INT)){
                 Tag.putInt("Kills", 0);
             }
-            Tag.putFloat("Kills", (float) (Tag.getFloat("Kills")+1));
-            AttributeModifier.read(item.getTag()).write().putString("Attack");
+            Tag.putInt("Kills", (Tag.getInt("Kills")+1));
         }
     }
 }

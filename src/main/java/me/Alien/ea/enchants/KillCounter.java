@@ -7,12 +7,17 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+
+import java.lang.reflect.Field;
 
 public class KillCounter extends Enchantment {
     public KillCounter() {
@@ -28,6 +33,11 @@ public class KillCounter extends Enchantment {
     };
 
     @Override
+    public boolean canVillagerTrade() {
+        return true;
+    }
+
+    @Override
     public int getMaxLevel() {
         return 4;
     }
@@ -35,14 +45,15 @@ public class KillCounter extends Enchantment {
     @Override
     public void onEntityDamaged(LivingEntity user, Entity targetE, int level) {
         if(targetE instanceof LivingEntity){
-            ItemStack Item = user.getHeldItemMainhand();
-            CompoundNBT Tag = Item.getOrCreateChildTag(Main.ModId);
+            ItemStack item = user.getHeldItemMainhand();
+            CompoundNBT Tag = item.getOrCreateChildTag(Main.ModId);
             if(((LivingEntity) targetE).getHealth() > 0)
                 return;
             if(!Tag.contains("Kills", Constants.NBT.TAG_FLOAT)){
                 Tag.putInt("Kills", 0);
             }
-            Tag.putFloat("Kills", (float) (Tag.getFloat("Kills")+0.5));
+            Tag.putFloat("Kills", (float) (Tag.getFloat("Kills")+1));
+            AttributeModifier.read(item.getTag()).write().putString("Attack");
         }
     }
 }
